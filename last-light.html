@@ -91,6 +91,7 @@ h1 em{font-style:italic; color:var(--ember)}
 
 /* ---------- cards ---------- */
 .cards{display:grid; gap:16px}
+@media (min-width:760px){.cards.four{grid-template-columns:repeat(2,1fr)}}
 @media (min-width:820px){.cards.three{grid-template-columns:repeat(3,1fr)}}
 .card{
   background:var(--surface); border:1px solid var(--line); border-radius:4px;
@@ -201,10 +202,10 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
     <p class="sub">A cold-water session, a fire on the sand, and a cast-iron dinner in the last hour of daylight. Plus the retainer that keeps the feed full the other eleven months.</p>
     <div class="horizon"></div>
     <div class="facts">
-      <span class="chip">Retainer from <b>$1,500/mo</b></span>
-      <span class="chip">Recommended <b>$3,000/mo</b></span>
-      <span class="chip">Fall shoot from <b>$1,000</b></span>
-      <span class="chip">Half-day photo minimum <b>$1,000</b></span>
+      <span class="chip">Half day, photo <b>$1,000</b></span>
+      <span class="chip">Half day, photo + video <b>$2,200</b></span>
+      <span class="chip">The whole arc <b>$3,400</b></span>
+      <span class="chip">Two days <b>$5,900</b></span>
       <span class="chip">Location <b>Coast, TBC</b></span>
     </div>
   </div>
@@ -216,116 +217,16 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 <section class="sec">
   <span class="tag">The read</span>
   <div class="col">
-    <h2>Two decisions, priced separately</h2>
-    <p class="lede">Coming out of our conversation there are two things on the table, and they should not be bundled into one number. Keeping them apart makes both easier to say yes to.</p>
-    <div class="pair">
-      <div class="panel sea">
-        <h4>1 — The retainer</h4>
-        <p class="small" style="color:var(--ink-2)">An ongoing monthly relationship: a predictable shoot cadence, a stocked content bank, and someone who already knows the brand so no month starts from zero. Priced monthly, three-month minimum.</p>
-      </div>
-      <div class="panel warn">
-        <h4>2 — The fall shoot</h4>
-        <p class="small" style="color:var(--ink-2)">A one-off campaign piece — bonfire, surf, cook, sunset — with its own concept, crew, and deliverables. Bookable standalone, or folded into the retainer at a discount.</p>
-      </div>
-    </div>
-    <p class="note">Every figure here is a rate, not an estimate — no hidden line items appear later. Anything billed at cost (permits, lodging, mileage) is called out as such and approved in writing before it's spent.</p>
-  </div>
-</section>
-
-<!-- ============ RETAINER ============ -->
-<section class="sec">
-  <span class="tag">01 / Retainer</span>
-  <div class="col">
-    <h2>Monthly tiers</h2>
-    <p class="lede">Three levels. The middle one is the $3,000 we discussed and it's the one built for where Distant Local is right now — enough volume to post consistently without banking content you never get to.</p>
-
-    <div class="cards three">
-      <article class="card">
-        <div class="card-head">
-          <span class="tier-name">Driftwood</span>
-          <span class="tier-note">Keep the lights on. One shoot, one story per month.</span>
-          <span class="price">$1,500<span> /mo</span></span>
-        </div>
-        <ul class="spec">
-          <li><b>1 half-day shoot</b> per month (up to 4 hrs, one location)</li>
-          <li><b>25 edited stills</b>, colour-graded, sized for web + social</li>
-          <li><b>3 vertical clips</b> (15–30s) captured on the same day</li>
-          <li>Shot list built from your calendar</li>
-          <li><b>1 round</b> of selects revision</li>
-          <li>Usage: <b>1 year</b>, organic social + owned web</li>
-          <li>Delivery: <b>10 business days</b></li>
-        </ul>
-      </article>
-
-      <article class="card pick">
-        <div class="card-head">
-          <span class="tier-name">Ember</span>
-          <span class="tier-note">The working tier. A full shoot day and a real video every month.</span>
-          <span class="price">$3,000<span> /mo</span></span>
-        </div>
-        <ul class="spec">
-          <li><b>1 full shoot day</b> or <b>2 half days</b> per month</li>
-          <li><b>60 edited stills</b> across product, lifestyle, and detail</li>
-          <li><b>1 hero video</b> 30–60s, finished with sound design</li>
-          <li><b>6 vertical cutdowns</b> from the same footage</li>
-          <li>Monthly <b>planning call</b> + shot list mapped to launches</li>
-          <li>Location <b>scouting included</b> within 60 mi of base</li>
-          <li>Organised <b>content bank</b> — shared drive, named and tagged</li>
-          <li><b>2 rounds</b> of revisions</li>
-          <li>Usage: <b>2 years</b>, organic + paid social, web, email</li>
-          <li>Delivery: <b>7 business days</b></li>
-        </ul>
-      </article>
-
-      <article class="card">
-        <div class="card-head">
-          <span class="tier-name">Longshore</span>
-          <span class="tier-note">Campaign pace. Two days a month, crew and talent handled.</span>
-          <span class="price">$5,000<span> /mo</span></span>
-        </div>
-        <ul class="spec">
-          <li><b>2 full shoot days</b> per month — bankable into one 2-day trip</li>
-          <li><b>120+ edited stills</b></li>
-          <li><b>2 hero videos</b> + <b>12 verticals</b></li>
-          <li><b>Assistant included</b> on every shoot day</li>
-          <li><b>1 talent per diem included</b> per shoot day</li>
-          <li>Talent sourcing and coordination handled</li>
-          <li><b>Quarterly concepting</b> — a treatment like this one, every quarter</li>
-          <li>Usage: <b>3 years</b>, all digital incl. paid <span class="small">(OOH/broadcast quoted separately)</span></li>
-          <li>Delivery: <b>5 business days</b>; social-first selects in <b>48 hrs</b></li>
-        </ul>
-      </article>
-    </div>
-
-    <div class="pair">
-      <div class="panel">
-        <h4>How the retainer works</h4>
-        <ul>
-          <li><b>3-month minimum</b>, then month-to-month with 30 days' notice.</li>
-          <li>Invoiced on the <b>1st, in advance</b>. Month one due at signing.</li>
-          <li>An unused shoot day <b>rolls forward 30 days</b>, then expires. Weather cancellations never expire.</li>
-          <li>Retainer clients get all à la carte work at <b>15% off</b> the rate card.</li>
-          <li>Deliverable mix is flexible month to month — trade a video for extra stills, or bank two months into one bigger shoot, as long as it's agreed on the planning call.</li>
-        </ul>
-      </div>
-      <div class="panel">
-        <h4>Not included in any tier</h4>
-        <ul>
-          <li>Travel beyond 60 mi from base — mileage, lodging, and travel days billed per the crew section.</li>
-          <li>Talent fees and per diems beyond what a tier names.</li>
-          <li>Permits, location fees, studio rental — at cost.</li>
-          <li>Props, wardrobe, and food purchased for a shoot — at cost, receipts.</li>
-          <li>Out-of-home, broadcast, or third-party licensing — quoted per campaign.</li>
-          <li>Paid ad management, copywriting, or posting to your accounts.</li>
-        </ul>
-      </div>
-    </div>
+    <h2>One shoot, one arc, four ways to buy it</h2>
+    <p class="lede">This is a standalone campaign shoot — its own concept, crew, and deliverables, quoted on its own. It sits outside the monthly retainer, which is proposed separately in <em>Pins on the Map</em>. Booking one has no bearing on the other.</p>
+    <p>The concept has a natural shape: a session ends, a fire gets built, something gets cooked, the light goes. The options below are all the same day — what changes is how much of that arc we're there for, and whether we come back with video as well as stills.</p>
+    <p class="note">Every figure here is a rate, not an estimate — no hidden line items appear later. Anything billed at cost (permits, lodging, per diems, firewood) is called out as such and approved in writing before it's spent.</p>
   </div>
 </section>
 
 <!-- ============ RATE CARD ============ -->
 <section class="sec">
-  <span class="tag">02 / Rate card</span>
+  <span class="tag">01 / Rate card</span>
   <div class="col">
     <h2>Day rates, à la carte</h2>
     <p class="lede">For anything outside a retainer, or for a second shoot in a month you've already used. A half day is the floor — I don't book below it.</p>
@@ -335,36 +236,37 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
           <tr><th>Engagement</th><th>What it is</th><th>Rate</th></tr>
         </thead>
         <tbody>
-          <tr><td><b>Half day — photo</b><span class="sub-note">Minimum booking</span></td><td>Up to 4 hrs on location, one setup or one story. 25–35 edited images.</td><td class="num">$1,000</td></tr>
-          <tr><td><b>Full day — photo</b></td><td>Up to 8 hrs, multiple locations or looks. 60–80 edited images.</td><td class="num">$1,800</td></tr>
-          <tr><td><b>Half day — photo + video</b></td><td>4 hrs, stills plus one 20–30s vertical-first cut.</td><td class="num">$1,600</td></tr>
-          <tr><td><b>Full day — photo + video</b><span class="sub-note">Most campaign work lands here</span></td><td>8 hrs, 60 stills + one 45–75s hero cut + 6 verticals.</td><td class="num">$2,600</td></tr>
-          <tr><td><b>Video-led day</b></td><td>Directed piece — story, sound design, colour. Stills are a by-product, not the goal.</td><td class="num">$2,800–3,500</td></tr>
+          <tr><td><b>Half day — photo</b><span class="sub-note">Absolute minimum booking</span></td><td>Up to 4 hrs on location, one story. 25–35 edited images. No video.</td><td class="num">$1,000</td></tr>
+          <tr><td><b>Half day — photo + video</b><span class="sub-note">Minimum for anything with motion</span></td><td>~5 hrs. 30 edited stills plus 4 vertical cutdowns, graded with location audio.</td><td class="num">$2,200</td></tr>
+          <tr><td><b>Full day — photo</b></td><td>Up to 8 hrs, multiple locations or looks. 60–80 edited images. No video.</td><td class="num">$1,800</td></tr>
+          <tr><td><b>Full day — photo + video</b><span class="sub-note">Most campaign work lands here</span></td><td>Up to 8 hrs. 60 stills + one 45–75s hero film + 6 verticals.</td><td class="num">$3,200</td></tr>
+          <tr><td><b>Video-led day</b></td><td>Directed piece — story, sound design, colour. Stills are a by-product, not the goal.</td><td class="num">$3,800–4,500</td></tr>
           <tr><td><b>Additional day, same trip</b></td><td>Any consecutive day while already on location.</td><td class="num">−15%</td></tr>
-          <tr><td><b>Half-day product pickup</b></td><td>Controlled light, flat lays and packshots. Studio or on-site.</td><td class="num">$800</td></tr>
+          <tr><td><b>Half-day product pickup</b></td><td>Controlled light, flat lays and packshots. Studio or on-site, stills only.</td><td class="num">$800</td></tr>
           <tr><td><b>Extra edited images</b></td><td>Beyond package count, pulled from the same shoot.</td><td class="num">$35 / ea</td></tr>
           <tr><td><b>Extra vertical cutdown</b></td><td>New edit from existing footage.</td><td class="num">$150 / ea</td></tr>
           <tr><td><b>Rush turnaround</b></td><td>Final delivery inside 72 hrs of wrap.</td><td class="num">+25%</td></tr>
-          <tr><td><b>Third revision round</b></td><td>Beyond what the tier or package includes.</td><td class="num">$250</td></tr>
+          <tr><td><b>Third revision round</b></td><td>Beyond what the package includes.</td><td class="num">$250</td></tr>
         </tbody>
       </table>
     </div>
+    <p class="note">Adding video roughly doubles a half day, and the reason is post rather than time on the beach. The extra $1,200 is the grade, the sound design, the vertical reframes, and the audio pass — most of it happening after everyone has gone home. It's also why a <b>full</b> day of video is only $1,000 more than a half day: that fixed post cost is already paid, so the second half of the day is nearly all upside.</p>
     <p class="small">Rates cover shooting, culling, editing, colour, delivery, and the licence described. Unedited RAW files aren't a standard deliverable; if you need the archive, it's a $500 add-on per shoot with a written agreement that nothing goes out un-graded.</p>
   </div>
 </section>
 
 <!-- ============ FALL SHOOT ============ -->
 <section class="sec">
-  <span class="tag">03 / Fall shoot</span>
+  <span class="tag">02 / Fall shoot</span>
   <div class="col">
-    <h2>Three ways to shoot <em style="font-style:italic;color:var(--ember)">Last Light</em></h2>
-    <p class="lede">Same concept, three depths. Option B is what the idea actually wants — one full day gets you the session, the fire, the food, and the dark, which is the whole arc.</p>
+    <h2>Four ways to shoot <em style="font-style:italic;color:var(--ember)">Last Light</em></h2>
+    <p class="lede">Same concept, four depths. Option C is what the idea actually wants — one full day gets you the session, the fire, the food, and the dark, which is the whole arc. A and B are real options, but they buy a fragment of it: the fire without the session, or the session without the dark.</p>
 
-    <div class="cards three">
+    <div class="cards four">
       <article class="card">
         <div class="card-head">
           <span class="tier-name">A — Sundown</span>
-          <span class="tier-note">Half day, photo only. The last two hours of light and the first of the fire.</span>
+          <span class="tier-note">Half day, stills only. The last two hours of light and the first of the fire.</span>
           <span class="price">$1,000<span> flat</span></span>
         </div>
         <ul class="spec">
@@ -372,25 +274,44 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
           <li><b>1 talent</b> (per diem billed separately)</li>
           <li><b>30 edited stills</b></li>
           <li>Golden hour → fire-lit blue hour</li>
-          <li>Shot around one product story</li>
+          <li><b>No video.</b> Blocks 4, 5 and 8 only</li>
           <li>Usage: 1 yr organic + web</li>
+          <li>Delivery: 10 business days</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-head">
+          <span class="tier-name">B — Firelight</span>
+          <span class="tier-note">Half day with motion. Stills plus verticals, no long-form film.</span>
+          <span class="price">$2,200<span> flat</span></span>
+        </div>
+        <ul class="spec">
+          <li><b>5 hrs</b>, one beach location</li>
+          <li><b>1–2 talent</b></li>
+          <li><b>30 edited stills</b></li>
+          <li><b>4 vertical cutdowns</b>, 15–30s, cut for Reels and TikTok</li>
+          <li>Location audio captured — fire, waves, wind</li>
+          <li><b>No hero film.</b> The verticals stand alone</li>
+          <li>Usage: 1 yr organic + paid social, web</li>
           <li>Delivery: 10 business days</li>
         </ul>
       </article>
 
       <article class="card pick">
         <div class="card-head">
-          <span class="tier-name">B — Bonfire</span>
-          <span class="tier-note">Full day, photo + video. Surf in, fire up, cook, eat, dark.</span>
-          <span class="price">$2,600<span> flat</span></span>
+          <span class="tier-name">C — Bonfire</span>
+          <span class="tier-note">Full day, the complete arc. Surf in, fire up, cook, eat, dark.</span>
+          <span class="price">$3,400<span> flat</span></span>
         </div>
         <ul class="spec">
           <li><b>9 hrs</b>, two locations (break + fire ring)</li>
           <li><b>2 talent</b>, <b>assistant included</b></li>
           <li><b>70 edited stills</b></li>
           <li><b>1 hero film, 60–75s</b> — sound-design led</li>
-          <li><b>6 vertical cutdowns</b> built for Reels/TikTok</li>
-          <li>Location audio: waves, fire, cast iron, wind</li>
+          <li><b>6 vertical cutdowns</b></li>
+          <li>Full location audio pass</li>
+          <li>All eight blocks in the run of day</li>
           <li>Usage: 2 yrs organic + paid social, web, email</li>
           <li>Delivery: 10 business days; 5 social selects in 48 hrs</li>
         </ul>
@@ -398,9 +319,9 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
       <article class="card">
         <div class="card-head">
-          <span class="tier-name">C — Season</span>
+          <span class="tier-name">D — Season</span>
           <span class="tier-note">Two days. Dawn patrol and dusk, enough to post all autumn.</span>
-          <span class="price">$4,500<span> flat</span></span>
+          <span class="price">$5,900<span> flat</span></span>
         </div>
         <ul class="spec">
           <li><b>2 days</b> — cold sunrise + the full bonfire arc</li>
@@ -416,7 +337,8 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
       </article>
     </div>
 
-    <p class="note"><b>If you're on the Ember retainer</b>, Option B is your monthly full day — you'd pay only the crew, talent, and location pass-throughs. Option C would be one retainer day plus $1,530 (the second day at the retainer's 15% discount).</p>
+    <p class="note"><b>Where the options come from.</b> C is the rate-card full day of photo and video ($3,200) with an assistant folded in. D is two days with the second at the standard −15% same-trip rate, both assistants included, plus the anthem film. B sits exactly at the half-day photo-and-video minimum. Nothing here is priced below rate card.</p>
+    <p class="note"><b>If a retainer is running.</b> Off-retainer work is quoted at 15% off the rate card for retainer clients, so C would come in at $2,890 and D at $5,015. If the shoot lands in a month with an unused shoot day, that day absorbs part of it — the exact offset depends on the tier, and it's a better conversation once a tier is picked.</p>
 
     <h3 style="margin-top:14px">Add-ons</h3>
     <div class="tscroll">
@@ -438,7 +360,7 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
 <!-- ============ CREW & PER DIEM ============ -->
 <section class="sec">
-  <span class="tag">04 / Crew &amp; per diem</span>
+  <span class="tag">03 / Crew &amp; per diem</span>
   <div class="col">
     <h2>Talent, assistant, and what a body on set costs</h2>
     <p class="lede">A bonfire shoot needs hands — someone tending fire, someone in the water, someone who can actually cook. These are the numbers so nobody's surprised on shoot day, and so we can add a face when a trip calls for it.</p>
@@ -467,9 +389,9 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
       <div class="panel">
         <h4>How I'd actually use this</h4>
         <ul>
-          <li><b>Local shoot day</b> — 2 talent + 1 assistant is <b>$700</b> on top of the shoot fee. That's the realistic add for Option B if the assistant weren't already included.</li>
+          <li><b>Local shoot day</b> — 2 talent + 1 assistant is <b>$700</b> on top of the shoot fee. That's the realistic add for Option C if the assistant weren't already included.</li>
           <li><b>Adding a face on the road</b> — bringing one extra person on a two-day trip is <b>$300 stipend + $150 M&amp;IE + their share of lodging</b>. Cheap way to make a trip feel populated instead of staged.</li>
-          <li><b>Longshore retainer</b> already absorbs one talent per diem and the assistant every shoot day, which is most of why it's priced where it is.</li>
+          <li><b>Option A or B</b> carries no assistant, so a shoot that needs one is $400 on top. On a fire shoot at dusk it is usually worth it — someone has to tend the fire while I'm shooting it.</li>
         </ul>
       </div>
       <div class="panel warn">
@@ -488,7 +410,7 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
 <!-- ============ MOOD ============ -->
 <section class="sec">
-  <span class="tag">05 / Direction</span>
+  <span class="tag">04 / Direction</span>
   <div class="col">
     <h2>Cozy, but cold at the edges</h2>
     <p class="lede">The whole look lives on one tension: warm light against cold water. Firelight on a face, dark surf behind it. Wool over neoprene. Steam off a pan into wind. If a frame doesn't have both temperatures in it, it's not the shot.</p>
@@ -551,7 +473,7 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
 <!-- ============ TREATMENT ============ -->
 <section class="sec">
-  <span class="tag">06 / Treatment</span>
+  <span class="tag">05 / Treatment</span>
   <div class="col">
     <h2>Last Light — the film</h2>
     <p class="lede"><b>Logline:</b> A cold session ends the way the best ones do — a fire on the sand, a pan of something hot, and the last hour of light shared with people who stayed in the water too long.</p>
@@ -586,7 +508,7 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
     </div>
     <p class="small">Everything after 5:38p happens once and doesn't come back. The whole day is engineered so the fire is already burning and the food is already going when the sun drops — we are not building a fire in the dark on camera.</p>
 
-    <h3 style="margin-top:20px">Run of day <span class="small" style="font-family:'IBM Plex Mono',monospace">— Option B, full day</span></h3>
+    <h3 style="margin-top:20px">Run of day <span class="small" style="font-family:'IBM Plex Mono',monospace">— Option C, full day</span></h3>
     <div class="rod">
       <div class="rod-row"><span class="rod-time">12:30p</span><span class="rod-block">Prep</span><span class="rod-body">Crew call at base. Gear check, batteries, cards. Firewood and food loaded. <b>Permit and fire ring confirmed.</b></span></div>
       <div class="rod-row"><span class="rod-time">1:30p</span><span class="rod-block">Load in</span><span class="rod-body">On the sand. Fire ring claimed and staged. Talent arrives, releases signed, wardrobe laid out.</span></div>
@@ -621,7 +543,7 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
 <!-- ============ LOGISTICS ============ -->
 <section class="sec">
-  <span class="tag">07 / Logistics</span>
+  <span class="tag">06 / Logistics</span>
   <div class="col">
     <h2>What has to be true for this to work</h2>
     <div class="pair">
@@ -669,15 +591,15 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
 <!-- ============ TERMS ============ -->
 <section class="sec">
-  <span class="tag">08 / Terms</span>
+  <span class="tag">07 / Terms</span>
   <div class="col">
     <h2>At a glance</h2>
     <div class="tscroll">
       <table>
         <thead><tr><th>Item</th><th>Terms</th></tr></thead>
         <tbody>
-          <tr><td><b>Retainer billing</b></td><td>Monthly in advance, due the 1st. First month at signing. Three-month minimum, then 30 days' notice either way.</td></tr>
-          <tr><td><b>One-off shoots</b></td><td>50% to hold the date, balance due on delivery. Date isn't held until the deposit lands.</td></tr>
+          <tr><td><b>Booking</b></td><td>50% to hold the date, balance due on delivery. The date isn't held until the deposit lands.</td></tr>
+          <tr><td><b>Retainer clients</b></td><td>15% off every figure in this document. The monthly programme is proposed separately in <em>Pins on the Map</em>.</td></tr>
           <tr><td><b>Pass-throughs</b></td><td>Per diems, permits, lodging, mileage, props — billed at cost with receipts, approved in writing first, no markup.</td></tr>
           <tr><td><b>Cancellation</b></td><td>Inside 7 days of a booked shoot: 50% kill fee, plus any non-refundable costs already committed. Weather moves are free.</td></tr>
           <tr><td><b>Revisions</b></td><td>Included rounds are per tier or package. Additional rounds $250. Revisions are colour, crop, and selects — not reshoots.</td></tr>
@@ -690,8 +612,7 @@ footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-tran
 
     <h3 style="margin-top:16px">Next steps</h3>
     <div class="beats">
-      <div class="beat"><div class="beat-b"><span class="beat-t">Pick a retainer tier</span><span class="beat-d">Ember at $3,000 is the recommendation and matches what we discussed. Start there for three months and adjust from real data.</span></div></div>
-      <div class="beat"><div class="beat-b"><span class="beat-t">Pick a fall shoot option</span><span class="beat-d">Option B. If the retainer starts before the shoot, it folds in and you pay pass-throughs only.</span></div></div>
+      <div class="beat"><div class="beat-b"><span class="beat-t">Pick an option</span><span class="beat-d">Option C at $3,400. It's the only one that gets the whole arc, and the fire and food blocks are where the difference actually shows.</span></div></div>
       <div class="beat"><div class="beat-b"><span class="beat-t">Confirm the beach</span><span class="beat-d">I'll check permits, tide, and fire rules for two candidate spots and come back with a recommendation and a backup.</span></div></div>
       <div class="beat"><div class="beat-b"><span class="beat-t">Lock the date + hold day</span><span class="beat-d">A mid-October Friday or Saturday, with the following weekend held.</span></div></div>
       <div class="beat"><div class="beat-b"><span class="beat-t">Cast and confirm crew</span><span class="beat-d">Two or three people who surf, one who can cook. Releases out ahead of the day.</span></div></div>
