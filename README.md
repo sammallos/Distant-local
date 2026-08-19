@@ -1,27 +1,45 @@
-# Last Light — Distant Local
+# Distant Local — proposals
 
-Client-facing proposal and production treatment for Distant Local.
+Two separate client-facing documents. They stand alone and are sent independently.
 
-**`last-light.html`** — the full document, published as an Artifact. Covers:
+## `retainer.html` — Pins on the Map
 
-| Section | Contents |
-| --- | --- |
-| Retainer | Three monthly tiers — Driftwood $1,500 / Ember $3,000 / Longshore $5,000 — with deliverables, usage, turnaround, and what's excluded |
-| Rate card | À la carte day rates, anchored on the $1,000 half-day photo minimum |
-| Fall shoot | Three options for the bonfire/surf/cook piece — $1,000 / $2,600 / $4,500 — plus add-ons |
-| Crew & per diem | Talent stipends, assistant rates, travel M&IE, mileage, lodging, overtime |
-| Direction | Cozy-fall-coastal mood board: palette, light, texture, wardrobe, casting, anti-references |
-| Treatment | Logline, eight-beat arc, light-window graphic, full run of day, block-to-deliverable mapping |
-| Logistics | Permits, tide, burn bans, safety, weather policy, fallbacks |
-| Terms | Billing, deposits, cancellation, usage, ownership, next steps |
+The ongoing monthly programme. The unit of work is a **pin**: one location,
+covered fully, delivered as a fixed package (1 hero film, 4 verticals, 25 stills,
+3 map cards, 1 location audio bed).
+
+| Tier | Pins/mo | Monthly | Per pin | Radius |
+| --- | --- | --- | --- | --- |
+| Waypoint | 1 | $1,750 | $1,750 | 90 min drive |
+| **Crossing** | 2 | **$3,000** | $1,500 | 4 hr drive |
+| Meridian | 4 | $5,000 | $1,250 | One region, one trip |
+
+Meridian runs in two modes because the travel maths differs:
+
+- **Short-haul** — $5,000 all-in, travel included to a $1,200 cap. Baja, PNW,
+  Rockies, Costa Rica, Portugal.
+- **Long-haul** — $5,000 creative fee **plus travel at cost** against an agreed
+  cap. Australia, France, Japan. A 12-day Australia trip runs $4,650–6,500 in
+  travel, so a bundled $5,000 would leave nothing for the work. A fixed all-in
+  alternative of $8,500 is offered for clients who want one number.
+
+Also covers: pin selection criteria, a four-week cadence chart, a long-haul trip
+timeline, crew and per diems, and terms.
+
+## `last-light.html` — Last Light
+
+The one-off fall campaign shoot: beach bonfire, surf, cast-iron cook, sunset.
+Three options at $1,000 / $2,600 / $4,500, plus mood board, eight-beat treatment,
+light-window graphic, run of day, logistics and terms.
 
 ## Before sending
 
-Figures are set for a 2026 season and a coastal market — sanity-check against
-your own costs before this goes out. Three things are placeholders:
-
-- Sunset and tide times in the light-window graphic are a sample mid-October
-  Pacific coast date. Replace with the real chart once the location is locked.
+- Figures are set for a 2026 season and a US coastal market — sanity-check
+  against your own costs.
+- Travel figures in the Meridian section are typical planning ranges, not
+  quotes. Replace with booked costs once a region and dates are set.
 - The mileage rate is marked approximate — confirm the current IRS business
-  rate at booking.
-- Beach, dates, and talent names are unset.
+  rate at signing.
+- Sunset and tide times in `last-light.html` are a sample mid-October Pacific
+  coast date.
+- Byline reads "Sammallos Media" in both documents.

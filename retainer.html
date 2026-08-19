@@ -1,0 +1,574 @@
+<title>Pins on the Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --ground:#E7EAE6; --surface:#F4F6F2; --surface-2:#DCE2DB; --sunk:#D3DAD3;
+  --ink:#141A18; --ink-2:#3B4542; --muted:#6B7672; --line:#C4CDC6; --line-soft:#D6DDD7;
+  --sea:#1F4E58; --sea-2:#4C7C85; --sea-wash:rgba(31,78,88,.08); --sea-line:#8FB0B6;
+  --ember:#B84A16; --ember-wash:rgba(184,74,22,.09);
+  --shadow:0 1px 2px rgba(20,26,24,.05), 0 8px 24px -12px rgba(20,26,24,.18);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1211; --surface:#151C1A; --surface-2:#1D2724; --sunk:#101715;
+    --ink:#E9EDE9; --ink-2:#C2CAC6; --muted:#8B9792; --line:#2B3733; --line-soft:#212B28;
+    --sea:#84BAC2; --sea-2:#3E6B73; --sea-wash:rgba(132,186,194,.10); --sea-line:#3A5F66;
+    --ember:#F0813A; --ember-wash:rgba(240,129,58,.11);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1211; --surface:#151C1A; --surface-2:#1D2724; --sunk:#101715;
+  --ink:#E9EDE9; --ink-2:#C2CAC6; --muted:#8B9792; --line:#2B3733; --line-soft:#212B28;
+  --sea:#84BAC2; --sea-2:#3E6B73; --sea-wash:rgba(132,186,194,.10); --sea-line:#3A5F66;
+  --ember:#F0813A; --ember-wash:rgba(240,129,58,.11);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 28px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:Archivo,"Helvetica Neue",Arial,sans-serif;
+  font-size:16.5px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+::selection{background:var(--sea-wash); color:var(--ink)}
+a{color:var(--sea); text-underline-offset:2px}
+a:focus-visible{outline:2px solid var(--sea); outline-offset:3px}
+
+.wrap{max-width:1120px; margin:0 auto; padding:0 clamp(20px,5vw,56px)}
+.sec{display:grid; grid-template-columns:1fr; padding:clamp(40px,6vw,68px) 0; border-top:1px solid var(--line)}
+.sec > .col{display:flex; flex-direction:column; gap:26px; min-width:0}
+.tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--sea); margin:0 0 18px; display:block;
+}
+@media (min-width:900px){
+  .sec{grid-template-columns:158px minmax(0,1fr); gap:0 40px}
+  .tag{margin:7px 0 0; position:sticky; top:24px}
+}
+
+h1,h2,h3,h4{font-family:Fraunces,Georgia,serif; font-weight:600; text-wrap:balance; margin:0; letter-spacing:-.012em}
+h2{font-size:clamp(27px,3.6vw,38px); line-height:1.12; font-variation-settings:"SOFT" 20,"opsz" 90}
+h3{font-size:20px; line-height:1.25}
+h4{font-size:16px; line-height:1.3; font-weight:700}
+p{margin:0; max-width:66ch}
+.lede{font-size:18.5px; color:var(--ink-2); max-width:62ch}
+.small{font-size:14px; color:var(--muted); max-width:70ch}
+.mono{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums}
+strong,b{font-weight:600}
+
+/* hero */
+.hero{position:relative; overflow:hidden; border-bottom:1px solid var(--line)}
+.hero::after{
+  content:""; position:absolute; inset:auto 0 0 0; height:70%; pointer-events:none;
+  background:radial-gradient(120% 100% at 15% 100%, var(--sea-wash) 0%, transparent 62%);
+}
+.hero-in{position:relative; z-index:1; padding:clamp(48px,8vw,100px) 0 clamp(38px,6vw,64px)}
+.kicker{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--muted); display:flex; flex-wrap:wrap; gap:10px 18px; margin-bottom:32px;
+}
+.kicker b{color:var(--ink); font-weight:500}
+h1{
+  font-size:clamp(46px,9.5vw,102px); line-height:.94; font-weight:400; letter-spacing:-.035em;
+  font-variation-settings:"SOFT" 40,"WONK" 1,"opsz" 144;
+}
+h1 em{font-style:italic; color:var(--sea)}
+.sub{font-family:Fraunces,Georgia,serif; font-size:clamp(19px,2.4vw,25px); line-height:1.34; color:var(--ink-2); max-width:34ch; margin:22px 0 0; font-weight:400}
+.horizon{height:1px; background:linear-gradient(90deg,var(--sea) 0%, var(--sea-line) 40%, transparent 100%); margin:36px 0 28px}
+.facts{display:flex; flex-wrap:wrap; gap:8px}
+.chip{
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; letter-spacing:.04em;
+  border:1px solid var(--line); border-radius:100px; padding:6px 13px; color:var(--ink-2); background:var(--surface);
+}
+.chip b{color:var(--ember); font-weight:500}
+
+/* cards */
+.cards{display:grid; gap:16px}
+@media (min-width:860px){.cards.three{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:0 0 26px; display:flex; flex-direction:column; box-shadow:var(--shadow); overflow:hidden}
+.card.pick{border-color:var(--sea)}
+.card-top{padding:22px 22px 16px; border-bottom:1px solid var(--line-soft); display:flex; flex-direction:column; gap:5px; position:relative}
+.card.pick .card-top{background:var(--sea-wash)}
+.card.pick .card-top::after{
+  content:"Recommended"; position:absolute; top:14px; right:18px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--sea); border:1px solid var(--sea-line); border-radius:2px; padding:2px 7px;
+}
+.tier-name{font-family:Fraunces,Georgia,serif; font-size:23px; font-weight:600; line-height:1.1}
+.tier-note{font-size:13px; color:var(--muted); line-height:1.42; max-width:34ch}
+.price{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; font-size:29px; letter-spacing:-.02em; color:var(--ember); line-height:1.1; margin-top:10px}
+.price span{font-size:13px; color:var(--muted); letter-spacing:.02em}
+
+/* pin counter */
+.pins{display:flex; align-items:center; gap:7px; padding:12px 22px; background:var(--sunk); border-bottom:1px solid var(--line-soft)}
+.pin-dot{width:9px; height:9px; border-radius:50%; background:var(--sea); flex:none}
+.pin-dot.off{background:transparent; box-shadow:inset 0 0 0 1px var(--sea-line)}
+.pin-lbl{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); margin-left:6px}
+
+ul.spec{list-style:none; margin:0; padding:18px 22px 0; display:flex; flex-direction:column; gap:9px; font-size:14.5px; line-height:1.5}
+ul.spec li{padding-left:17px; position:relative; color:var(--ink-2)}
+ul.spec li::before{content:""; position:absolute; left:0; top:.62em; width:7px; height:1px; background:var(--sea-2)}
+ul.spec li b{color:var(--ink); font-weight:600}
+ul.spec li.hd{padding-left:0; margin-top:6px; font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--sea)}
+ul.spec li.hd::before{display:none}
+
+/* tables */
+.tscroll{overflow-x:auto; border:1px solid var(--line); border-radius:4px; background:var(--surface)}
+table{border-collapse:collapse; width:100%; min-width:520px; font-size:14.5px}
+th,td{text-align:left; padding:12px 16px; border-bottom:1px solid var(--line-soft); vertical-align:top}
+thead th{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); font-weight:500; background:var(--sunk); border-bottom:1px solid var(--line)}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ember); font-weight:500}
+td.numq{font-family:"IBM Plex Mono",ui-monospace,monospace; font-variant-numeric:tabular-nums; white-space:nowrap; color:var(--ink)}
+td .sub-note{display:block; color:var(--muted); font-size:13px; margin-top:2px}
+tr.total td{background:var(--sunk); font-weight:600; border-top:1px solid var(--line)}
+
+/* cadence gantt */
+.gantt{border:1px solid var(--line); border-radius:4px; background:var(--surface); padding:20px; overflow-x:auto}
+.gantt-in{min-width:600px; display:grid; grid-template-columns:78px repeat(4,1fr); gap:8px 6px; align-items:center}
+.g-wk{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10.5px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted); text-align:center; padding-bottom:4px; border-bottom:1px solid var(--line-soft)}
+.g-lbl{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--sea)}
+.g-bar{display:flex; border-radius:3px; overflow:hidden; border:1px solid var(--sea-line); background:var(--sea-wash)}
+.g-step{flex:1; padding:9px 6px; text-align:center; font-size:12px; color:var(--ink-2); border-right:1px solid var(--sea-line)}
+.g-step:last-child{border-right:0}
+.g-step b{display:block; font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--sea); margin-bottom:1px}
+.g-live{background:var(--sea); color:var(--ground)}
+.g-live b{color:var(--ground); opacity:.75}
+
+/* trip strip */
+.trip{border:1px solid var(--line); border-radius:4px; background:var(--surface); padding:20px; overflow-x:auto}
+.trip-in{min-width:640px}
+.trip-bar{display:flex; border:1px solid var(--sea-line); border-radius:3px; overflow:hidden}
+.t-seg{padding:12px 8px; text-align:center; border-right:1px solid var(--sea-line); min-width:0}
+.t-seg:last-child{border-right:0}
+.t-seg.travel{background:var(--sunk); color:var(--muted)}
+.t-seg.shootday{background:var(--sea-wash)}
+.t-d{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--muted); display:block}
+.t-n{font-size:13px; color:var(--ink); display:block; margin-top:2px; line-height:1.25}
+.t-seg.shootday .t-n{font-weight:600}
+
+/* panels */
+.pair{display:grid; gap:16px}
+@media (min-width:760px){.pair{grid-template-columns:1fr 1fr}}
+.panel{border:1px solid var(--line); border-radius:4px; padding:20px; background:var(--surface); display:flex; flex-direction:column; gap:12px}
+.panel.sea{background:var(--sea-wash); border-color:var(--sea-line)}
+.panel.flag{border-color:var(--ember); background:var(--ember-wash)}
+.panel h4{color:var(--ink)}
+.panel p{font-size:14.5px; color:var(--ink-2)}
+.panel ul{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; font-size:14.5px; color:var(--ink-2)}
+.panel ul li{padding-left:15px; position:relative}
+.panel ul li::before{content:"—"; position:absolute; left:0; color:var(--sea-2); font-size:11px; top:.15em}
+
+.note{border-left:2px solid var(--sea); padding:2px 0 2px 16px; font-size:14.5px; color:var(--ink-2); max-width:64ch}
+.note.hot{border-left-color:var(--ember)}
+
+/* steps */
+.beats{display:flex; flex-direction:column; counter-reset:beat}
+.beat{display:grid; grid-template-columns:34px 1fr; gap:14px; padding:15px 0; border-bottom:1px solid var(--line-soft); align-items:start}
+.beat::before{counter-increment:beat; content:counter(beat,decimal-leading-zero); font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:12px; color:var(--sea); padding-top:3px; font-variant-numeric:tabular-nums}
+.beat-b{display:flex; flex-direction:column; gap:3px}
+.beat-t{font-family:Fraunces,Georgia,serif; font-size:17px; font-weight:600}
+.beat-d{font-size:14.5px; color:var(--ink-2)}
+
+/* pin anatomy */
+.anat{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(168px,1fr))}
+.anat-i{border:1px solid var(--line); border-radius:4px; background:var(--surface); padding:16px; display:flex; flex-direction:column; gap:5px}
+.anat-q{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:22px; color:var(--sea); font-variant-numeric:tabular-nums; line-height:1}
+.anat-t{font-size:14.5px; font-weight:600; color:var(--ink)}
+.anat-d{font-size:13px; color:var(--muted); line-height:1.45}
+
+footer{border-top:1px solid var(--line); padding:44px 0 64px; display:flex; flex-direction:column; gap:10px}
+footer .mono{font-size:12px; letter-spacing:.05em; color:var(--muted); text-transform:uppercase}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<header class="hero">
+  <div class="wrap hero-in">
+    <div class="kicker">
+      <span>Retainer proposal for <b>Distant&nbsp;Local</b></span>
+      <span>By <b>Sammallos Media</b></span>
+      <span>Rev. <b>19 Aug 2026</b></span>
+    </div>
+    <h1>Pins on<br>the <em>Map</em></h1>
+    <p class="sub">A standing monthly programme that turns one location at a time into a film, a set of verticals, and a photo library — on a rhythm the feed can rely on.</p>
+    <div class="horizon"></div>
+    <div class="facts">
+      <span class="chip">One pin <b>$1,750/mo</b></span>
+      <span class="chip">Two pins <b>$3,000/mo</b></span>
+      <span class="chip">Four pins <b>$5,000/mo</b></span>
+      <span class="chip">Cadence <b>New location every 2 weeks</b></span>
+      <span class="chip">Minimum <b>3 months</b></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ===== THE PROGRAMME ===== -->
+<section class="sec">
+  <span class="tag">The programme</span>
+  <div class="col">
+    <h2>One location. One film. Every two weeks.</h2>
+    <p class="lede">The retainer exists to solve one problem: the map only means something if it keeps growing. A brand called Distant Local lives or dies on whether there is always somewhere new on it — and on whether each place gets treated properly rather than posted as a phone photo and forgotten.</p>
+    <p>So the unit of work isn't a shoot day. It's a <strong>pin</strong>: one location, fully covered, delivered as a complete package that drops onto the map and feeds two weeks of posting. The tiers below differ in one thing — how many pins land per month, and how far away they are.</p>
+    <div class="pair">
+      <div class="panel sea">
+        <h4>What you're buying</h4>
+        <ul>
+          <li>A <b>predictable cadence</b> — a new location live every two weeks, planned a month ahead, not scrambled.</li>
+          <li>A <b>growing library</b>, organised and tagged, that keeps working long after the post.</li>
+          <li>Someone who already knows the brand, so no month starts from a blank page.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>What this document doesn't cover</h4>
+        <ul>
+          <li>One-off campaign shoots — those are quoted separately, per concept.</li>
+          <li>Paid media management, posting, or copywriting.</li>
+          <li>Out-of-home, broadcast, or third-party licensing.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== ANATOMY OF A PIN ===== -->
+<section class="sec">
+  <span class="tag">Anatomy of a pin</span>
+  <div class="col">
+    <h2>What one location delivers</h2>
+    <p class="lede">Identical at every tier. A pin is a fixed package so the map stays visually consistent no matter whether the location is two hours down the coast or on the other side of the world.</p>
+
+    <div class="anat">
+      <div class="anat-i"><span class="anat-q">1</span><span class="anat-t">Hero film</span><span class="anat-d">60–90s, graded, sound-design led. Location audio, no stock music bed.</span></div>
+      <div class="anat-i"><span class="anat-q">4</span><span class="anat-t">Vertical cutdowns</span><span class="anat-d">15–30s, framed 9:16 in-camera — not cropped from the wide.</span></div>
+      <div class="anat-i"><span class="anat-q">25</span><span class="anat-t">Edited stills</span><span class="anat-d">Landscape, lifestyle, product-in-place, and detail. Web and social exports.</span></div>
+      <div class="anat-i"><span class="anat-q">3</span><span class="anat-t">Map card stills</span><span class="anat-d">One hero plus two supporting, cropped to your location-page ratios.</span></div>
+      <div class="anat-i"><span class="anat-q">1</span><span class="anat-t">Audio bed</span><span class="anat-d">Clean field recording from the location, delivered separately for reuse.</span></div>
+    </div>
+
+    <div class="pair">
+      <div class="panel">
+        <h4>How a pin gets chosen</h4>
+        <ul>
+          <li>It has to <b>look like nowhere else</b> on the map already — no two consecutive pins that read the same on a grid.</li>
+          <li>It has to be <b>reachable</b> without eating the shoot day: within the tier's radius, parked and walking by call time.</li>
+          <li>It has to have <b>a reason</b> — a season, a swell, a person who knows it, a thing you can only do there.</li>
+          <li>Permits, access, and private land cleared before it goes on the calendar, not the morning of.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Every pin gets a shoot day</h4>
+        <ul>
+          <li>A pin is <b>one full shoot day</b> on location, plus a half-day scout where the place is unfamiliar.</li>
+          <li>Two pins a month means <b>two shoot days</b>, not one day split in half.</li>
+          <li>Weather moves a pin to the backup date at no cost. A pin never gets shot badly to hit a calendar.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TIERS ===== -->
+<section class="sec">
+  <span class="tag">The tiers</span>
+  <div class="col">
+    <h2>Three levels, priced by pin</h2>
+    <p class="lede">Crossing at $3,000 is the recommendation and the one we discussed — two pins a month, a new location live every other week, all within driving range.</p>
+
+    <div class="cards three">
+      <article class="card">
+        <div class="card-top">
+          <span class="tier-name">Waypoint</span>
+          <span class="tier-note">One location a month. Enough to keep the map moving.</span>
+          <span class="price">$1,750<span> /mo</span></span>
+        </div>
+        <div class="pins">
+          <span class="pin-dot"></span><span class="pin-dot off"></span><span class="pin-dot off"></span><span class="pin-dot off"></span>
+          <span class="pin-lbl">1 pin</span>
+        </div>
+        <ul class="spec">
+          <li class="hd">Per month</li>
+          <li><b>1 hero film</b> 60–90s</li>
+          <li><b>4 verticals</b></li>
+          <li><b>25 edited stills</b> + 3 map cards</li>
+          <li class="hd">How it runs</li>
+          <li>Radius: <b>90 min</b> from base</li>
+          <li>Planning call every month</li>
+          <li><b>1 round</b> of revisions</li>
+          <li>Usage: <b>1 year</b>, organic social + owned web</li>
+          <li>Delivery: <b>10 business days</b></li>
+        </ul>
+      </article>
+
+      <article class="card pick">
+        <div class="card-top">
+          <span class="tier-name">Crossing</span>
+          <span class="tier-note">Two locations a month. A new pin live every two weeks.</span>
+          <span class="price">$3,000<span> /mo</span></span>
+        </div>
+        <div class="pins">
+          <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot off"></span><span class="pin-dot off"></span>
+          <span class="pin-lbl">2 pins</span>
+        </div>
+        <ul class="spec">
+          <li class="hd">Per month</li>
+          <li><b>2 hero films</b> 60–90s</li>
+          <li><b>8 verticals</b></li>
+          <li><b>50 edited stills</b> + 6 map cards</li>
+          <li><b>2 audio beds</b> from location</li>
+          <li class="hd">How it runs</li>
+          <li>Radius: <b>4 hrs</b> drive — regional, overnight where it earns it</li>
+          <li>Locations <b>planned a month ahead</b> on a shared calendar</li>
+          <li>Scouting included; permits and access handled</li>
+          <li>Organised <b>content bank</b> — named, tagged, by location</li>
+          <li><b>2 rounds</b> of revisions</li>
+          <li>Usage: <b>2 years</b>, organic + paid social, web, email</li>
+          <li>Delivery: <b>7 business days</b> per pin</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="card-top">
+          <span class="tier-name">Meridian</span>
+          <span class="tier-note">Four locations in one month, shot as a single trip.</span>
+          <span class="price">$5,000<span> /mo</span></span>
+        </div>
+        <div class="pins">
+          <span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span><span class="pin-dot"></span>
+          <span class="pin-lbl">4 pins</span>
+        </div>
+        <ul class="spec">
+          <li class="hd">Per month</li>
+          <li><b>4 hero films</b> 60–90s</li>
+          <li><b>16 verticals</b></li>
+          <li><b>100 edited stills</b> + 12 map cards</li>
+          <li><b>1 trip anthem film</b>, 90s, cutting all four together</li>
+          <li class="hd">How it runs</li>
+          <li>One region per month — <b>short-haul or long-haul</b>, see next section</li>
+          <li><b>Social-first selects within 48 hrs</b> of each location, so the feed runs live from the road</li>
+          <li>Local talent sourced at each stop</li>
+          <li><b>2 rounds</b> of revisions</li>
+          <li>Usage: <b>3 years</b>, all digital including paid</li>
+          <li>Delivery: staged from the road; full delivery <b>15 business days</b> after return</li>
+        </ul>
+      </article>
+    </div>
+
+    <h3 style="margin-top:12px">The ladder</h3>
+    <p class="small">The same package gets cheaper per location as volume goes up, because scouting, planning, and travel amortise across pins. This is the whole argument for the bigger tiers.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Tier</th><th>Pins / month</th><th>Films + verticals</th><th>Stills</th><th>Monthly</th><th>Cost per pin</th></tr></thead>
+        <tbody>
+          <tr><td><b>Waypoint</b></td><td class="numq">1</td><td class="numq">1 + 4</td><td class="numq">25</td><td class="num">$1,750</td><td class="num">$1,750</td></tr>
+          <tr><td><b>Crossing</b></td><td class="numq">2</td><td class="numq">2 + 8</td><td class="numq">50</td><td class="num">$3,000</td><td class="num">$1,500</td></tr>
+          <tr><td><b>Meridian</b><span class="sub-note">Creative fee; travel separate on long-haul</span></td><td class="numq">4</td><td class="numq">4 + 16 <span style="color:var(--sea)">+ anthem</span></td><td class="numq">100</td><td class="num">$5,000</td><td class="num">$1,250</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CADENCE ===== -->
+<section class="sec">
+  <span class="tag">Cadence</span>
+  <div class="col">
+    <h2>What a Crossing month actually looks like</h2>
+    <p class="lede">Two pins, offset by two weeks, each running the same four-step loop. While one is in the edit, the next is being scouted — so nothing waits on anything and a location goes live every fortnight.</p>
+
+    <div class="gantt">
+      <div class="gantt-in">
+        <div></div>
+        <div class="g-wk">Week 01</div><div class="g-wk">Week 02</div><div class="g-wk">Week 03</div><div class="g-wk">Week 04</div>
+
+        <div class="g-lbl">Pin A</div>
+        <div class="g-bar" style="grid-column:2 / span 2">
+          <div class="g-step"><b>Mon–Tue</b>Scout + lock</div>
+          <div class="g-step"><b>Thu</b>Shoot day</div>
+          <div class="g-step"><b>Wk 2</b>Edit + grade</div>
+          <div class="g-step g-live"><b>Fri</b>Live</div>
+        </div>
+        <div style="grid-column:4 / span 2"></div>
+
+        <div class="g-lbl">Pin B</div>
+        <div style="grid-column:2 / span 2"></div>
+        <div class="g-bar" style="grid-column:4 / span 2">
+          <div class="g-step"><b>Mon–Tue</b>Scout + lock</div>
+          <div class="g-step"><b>Thu</b>Shoot day</div>
+          <div class="g-step"><b>Wk 4</b>Edit + grade</div>
+          <div class="g-step g-live"><b>Fri</b>Live</div>
+        </div>
+
+        <div class="g-lbl">Always on</div>
+        <div class="g-bar" style="grid-column:2 / span 4; background:transparent; border-style:dashed">
+          <div class="g-step"><b>Week 1</b>Planning call — next month's two pins chosen and dated</div>
+          <div class="g-step"><b>Ongoing</b>Content bank kept current, tagged by location</div>
+          <div class="g-step"><b>Week 4</b>Review — what performed, what the next month leans into</div>
+        </div>
+      </div>
+    </div>
+    <p class="note">Shoot days sit midweek by default — better light windows, emptier locations, and it leaves the weekend as a free weather backup. Each pin carries one named backup date from the moment it's scheduled.</p>
+  </div>
+</section>
+
+<!-- ===== ON THE ROAD ===== -->
+<section class="sec">
+  <span class="tag">Meridian / on the road</span>
+  <div class="col">
+    <h2>Four pins, one trip, two ways to pay for it</h2>
+    <p class="lede">Four locations in a month only works as a single trip — one flight in, one region, four stops, one flight home. Four separate journeys would cost more than the retainer. What changes is how far that region is, and that changes the money in a way worth being direct about.</p>
+
+    <div class="pair">
+      <div class="panel sea">
+        <h4>Mode A — Short-haul · $5,000 all-in</h4>
+        <p>One region reachable by a short flight or a long drive. Baja, the Pacific Northwest, the Rockies, Costa Rica — or Portugal and Morocco if we're staging from Europe.</p>
+        <ul>
+          <li><b>Travel included</b> up to a $1,200 cap — flights, vehicle, fuel, lodging.</li>
+          <li>Talent stipends at each stop included (one person per pin).</li>
+          <li>7–9 days on the ground.</li>
+          <li>Anything over the cap is billed at cost, approved first. Under the cap is credited back to you.</li>
+        </ul>
+        <p class="small" style="color:var(--ink-2)"><b>This is the honest $5,000 tier.</b> The number works, the margins work, and nobody has to cut corners to hit it.</p>
+      </div>
+
+      <div class="panel flag">
+        <h4>Mode B — Long-haul · $5,000 + travel at cost</h4>
+        <p>Australia, France, Japan, Indonesia. Same four pins, same deliverables, but the travel can't sit inside the fee — the flights alone are most of it.</p>
+        <ul>
+          <li><b>$5,000 creative fee</b> — unchanged. That's the shooting, editing, grading, and delivery.</li>
+          <li><b>Travel billed at cost</b> against a cap we agree before anything is booked. Receipts, no markup.</li>
+          <li>Best case: <b>Distant Local books the flights and lodging directly</b> on your own card. You control the spend, there's nothing to reimburse, and it's a line you can see.</li>
+          <li>10–14 days on the ground. Long-haul needs the extra days or the jet lag eats two pins.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="margin-top:14px">The long-haul math, in the open</h3>
+    <p class="small">A realistic 12-day Australia trip, solo, four locations. These are typical figures, not a quote — the real numbers get locked when we pick dates and book.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Line</th><th>Notes</th><th>Typical</th></tr></thead>
+        <tbody>
+          <tr><td><b>Long-haul return flight</b></td><td>Booked 60+ days out. Shoulder season, one checked bag of gear.</td><td class="num">$1,300–1,900</td></tr>
+          <tr><td><b>Domestic legs + vehicle</b></td><td>One internal hop plus a wagon for the coastal driving between pins.</td><td class="num">$600–900</td></tr>
+          <tr><td><b>Lodging, 11 nights</b></td><td>Modest and near the locations, not city centre.</td><td class="num">$1,100–1,800</td></tr>
+          <tr><td><b>Meals &amp; incidentals</b></td><td>12 days at $75.</td><td class="num">$900</td></tr>
+          <tr><td><b>Local talent</b></td><td>One person per pin at $150, sourced locally.</td><td class="num">$600</td></tr>
+          <tr><td><b>Permits, parking, access</b></td><td>Varies enormously by country. Padded here.</td><td class="num">$150–400</td></tr>
+          <tr class="total"><td><b>Travel total</b></td><td>Billed at cost, or booked by you directly</td><td class="num">$4,650–6,500</td></tr>
+          <tr class="total"><td><b>Month total</b></td><td>$5,000 creative fee + travel</td><td class="num">$9,650–11,500</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="note hot"><b>Why I'm showing you this rather than quoting $5,000 all-in.</b> A bundled $5,000 Australia month would leave roughly nothing for the work itself — which means either the trip gets cut to five days and the pins get rushed, or I'm subsidising your flights. Neither is a good deal for you. Splitting fee from travel keeps the four pins at full quality and puts the travel spend somewhere you can actually control it. If you want one fixed number instead, <b>$8,500 all-in</b> for a long-haul month is the version I can commit to and stand behind, with anything under the cap credited back.</p>
+
+    <h3 style="margin-top:16px">A long-haul month, day by day</h3>
+    <div class="trip">
+      <div class="trip-in">
+        <div class="trip-bar">
+          <div class="t-seg travel" style="flex:2"><span class="t-d">Day 1–2</span><span class="t-n">Fly + reset</span></div>
+          <div class="t-seg shootday" style="flex:2"><span class="t-d">Day 3–4</span><span class="t-n">Pin 1<br>scout + shoot</span></div>
+          <div class="t-seg shootday" style="flex:2"><span class="t-d">Day 5–6</span><span class="t-n">Pin 2<br>scout + shoot</span></div>
+          <div class="t-seg travel" style="flex:1"><span class="t-d">Day 7</span><span class="t-n">Move + backup</span></div>
+          <div class="t-seg shootday" style="flex:2"><span class="t-d">Day 8–9</span><span class="t-n">Pin 3<br>scout + shoot</span></div>
+          <div class="t-seg shootday" style="flex:2"><span class="t-d">Day 10–11</span><span class="t-n">Pin 4<br>scout + shoot</span></div>
+          <div class="t-seg travel" style="flex:2"><span class="t-d">Day 12–13</span><span class="t-n">Fly home</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="small">Day 7 is deliberately soft — it's the move between regions and the catch-all if weather kills a shoot day. Without it, one bad forecast costs a pin. Social-first selects go out from the road after each pin, so the feed is running while the trip is still happening.</p>
+
+    <div class="pair">
+      <div class="panel">
+        <h4>Booking a long-haul month</h4>
+        <ul>
+          <li><b>60 days' notice minimum</b> — flight prices and permit lead times both punish late decisions.</li>
+          <li>Region and rough pin list agreed before flights are booked.</li>
+          <li>Travel cap agreed in writing. Nothing booked above it without a yes.</li>
+          <li>Travel insurance and any visa costs are a pass-through line.</li>
+          <li>If the trip is cancelled after flights are booked, non-refundable costs stand; the creative fee is credited to the next month.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Sensible sequencing</h4>
+        <ul>
+          <li>Start with <b>short-haul</b>. Prove the four-pin format works, see what a Meridian month does for the feed, then commit to Australia.</li>
+          <li>Run Crossing most months and <b>drop in one Meridian month per quarter</b> — that's the pattern I'd actually recommend. Steady local cadence, one big trip a season.</li>
+          <li>Two long-haul months a year is realistic. Four is a travel schedule, not a content programme.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CREW ===== -->
+<section class="sec">
+  <span class="tag">Crew &amp; per diems</span>
+  <div class="col">
+    <h2>When a pin needs more than one person</h2>
+    <p class="lede">Every tier assumes I'm shooting solo — that's what keeps the per-pin cost where it is. Some locations need a face in frame or a second pair of hands, and those are billed on top at cost.</p>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Role</th><th>Scope</th><th>Rate</th></tr></thead>
+        <tbody>
+          <tr><td><b>Talent — shoot day</b></td><td>Full day on location, meals provided. Covers a 1-year organic licence for their likeness.</td><td class="num">$150 / day</td></tr>
+          <tr><td><b>Talent — paid-media upgrade</b></td><td>Per person, per year, if their face runs in paid. Signed release either way.</td><td class="num">+$250</td></tr>
+          <tr><td><b>Talent — travel M&amp;IE</b></td><td>Meals and incidentals on any day away from home base, on top of the shoot-day stipend.</td><td class="num">$75 / day</td></tr>
+          <tr><td><b>Photo assistant</b></td><td>Lighting, grip, driving, carrying gear out of somewhere at dusk.</td><td class="num">$400 / day</td></tr>
+          <tr><td><b>Assistant — travel M&amp;IE</b></td><td>On the road, on top of the day rate.</td><td class="num">$65 / day</td></tr>
+          <tr><td><b>Second shooter</b></td><td>Independent coverage, own kit. Rarely needed for a pin.</td><td class="num">$600 / day</td></tr>
+          <tr><td><b>Drone coverage</b></td><td>Where airspace and local law allow. Not legal everywhere — checked per location.</td><td class="num">$350 / day</td></tr>
+          <tr><td><b>Lodging</b></td><td>At cost, capped at $180/night/room, receipts.</td><td class="num">At cost</td></tr>
+          <tr><td><b>Mileage</b></td><td>Beyond the tier's included radius. Current standard business rate, locked at signing.</td><td class="num">~$0.70 / mi</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Per diems are paid same-day, in cash or instant transfer. Every pass-through is approved in writing before it's spent, billed at cost with receipts, and never marked up. People who get paid on the day come back — which matters a lot when you're sourcing local talent in a place you've never been.</p>
+  </div>
+</section>
+
+<!-- ===== TERMS ===== -->
+<section class="sec">
+  <span class="tag">How it runs</span>
+  <div class="col">
+    <h2>Terms at a glance</h2>
+    <div class="tscroll">
+      <table>
+        <thead><tr><th>Item</th><th>Terms</th></tr></thead>
+        <tbody>
+          <tr><td><b>Billing</b></td><td>Monthly in advance, due the 1st. First month at signing.</td></tr>
+          <tr><td><b>Commitment</b></td><td>Three-month minimum on Waypoint and Crossing, then month to month with 30 days' notice. Meridian is booked per trip with 60 days' notice.</td></tr>
+          <tr><td><b>Changing tiers</b></td><td>Up any month, immediately. Down at the end of a billing month with 30 days' notice.</td></tr>
+          <tr><td><b>Unused pins</b></td><td>Roll forward 30 days, then expire. A pin lost to weather never expires.</td></tr>
+          <tr><td><b>Banking</b></td><td>Two Crossing months can be banked into one four-pin trip — that's a Meridian month at Crossing pricing, minus the anthem film and the on-the-road selects.</td></tr>
+          <tr><td><b>Pass-throughs</b></td><td>Talent, assistants, permits, lodging, mileage, travel — at cost, receipts, approved in writing first, no markup.</td></tr>
+          <tr><td><b>Revisions</b></td><td>Per tier. Additional rounds $250. Revisions are colour, crop, and selects — not reshoots.</td></tr>
+          <tr><td><b>Usage</b></td><td>As stated per tier. Out-of-home, broadcast, and third-party licensing quoted separately.</td></tr>
+          <tr><td><b>Ownership</b></td><td>Copyright stays with the photographer; Distant Local holds the licence described. Portfolio and case-study use reserved, with a hold on unreleased product until launch.</td></tr>
+          <tr><td><b>Delivery</b></td><td>Graded exports in a shared drive, organised by location, live for the length of the retainer plus 12 months.</td></tr>
+          <tr><td><b>Off-retainer work</b></td><td>Anything outside the pin programme is quoted per project, at 15% off the standard rate card for retainer clients.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 style="margin-top:16px">Next steps</h3>
+    <div class="beats">
+      <div class="beat"><div class="beat-b"><span class="beat-t">Pick a tier</span><span class="beat-d">Crossing at $3,000 is the recommendation — two pins a month, everything drivable, no travel budget to argue about while we find the rhythm.</span></div></div>
+      <div class="beat"><div class="beat-b"><span class="beat-t">Build the first shortlist</span><span class="beat-d">Six to eight candidate locations. I'll check access, permits, and seasonality and come back with the first two dated.</span></div></div>
+      <div class="beat"><div class="beat-b"><span class="beat-t">Lock month one</span><span class="beat-d">Two pins on the calendar with backup dates, and a shared drive stood up before the first shoot.</span></div></div>
+      <div class="beat"><div class="beat-b"><span class="beat-t">Decide on a trip</span><span class="beat-d">If Australia or France is the goal, a short-haul Meridian month in month two or three proves the four-pin format first. Long-haul then books 60 days out with real numbers instead of estimates.</span></div></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">
+  <p class="mono">Pins on the Map — Distant Local × Sammallos Media</p>
+  <p class="small">Proposal valid 30 days from 19 August 2026. Rates are for the 2026 season. Travel figures are typical ranges for planning, not quotes, and are replaced by booked costs once a region and dates are set. Mileage uses the current standard business rate, confirmed at signing.</p>
+</footer>
